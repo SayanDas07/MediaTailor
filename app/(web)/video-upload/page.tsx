@@ -2,6 +2,7 @@
 "use client"
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import axios from 'axios';
 
 function VideoUpload() {
   const [file, setFile] = useState<File | null>(null);
@@ -30,10 +31,9 @@ function VideoUpload() {
     formData.append("originalSize", file.size.toString());
 
     try {
-      const res = await fetch("/api/video-upload", {
-        method: "POST",
-        body: formData
-      });
+      const res = await axios.post("/api/video-upload", 
+        formData
+      );
       router.push("/");
     } catch (error) {
       console.log(error);
